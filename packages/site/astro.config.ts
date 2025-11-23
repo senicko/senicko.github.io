@@ -65,8 +65,8 @@ export default defineConfig({
           dark: darkTheme,
         },
         transformers: [
-          transformerNotationHighlight(),
           transformerMetaHighlight(),
+          transformerNotationHighlight(),
         ],
       },
     }),
