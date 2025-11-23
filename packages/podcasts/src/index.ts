@@ -109,7 +109,7 @@ async function generatePodcast(
 
       await fs.writeFile(
         sectionFilePath,
-        Buffer.from(await response.arrayBuffer())
+        new Uint8Array(await response.arrayBuffer())
       );
 
       return sectionFilePath;

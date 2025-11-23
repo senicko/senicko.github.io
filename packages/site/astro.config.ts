@@ -42,9 +42,6 @@ const rehypeAutoLinkHeadingsOptions: RehypeAutolinkHeadingsOptions = {
   ],
 };
 
-/**
- * remarkReadingTime returns remark plugin that generates expected reading time for each blog post.
- */
 export function remarkReadingTime() {
   return function (tree, { data }) {
     const textOnPage = toString(tree);
@@ -77,7 +74,7 @@ export default defineConfig({
     react(),
     sitemap(),
   ],
-  site: "https://senicko.com",
+  site: "https://senicko.github.io",
   devToolbar: {
     enabled: false,
   },
