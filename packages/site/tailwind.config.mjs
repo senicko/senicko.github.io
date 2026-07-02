@@ -24,7 +24,6 @@ export default {
     },
   },
   plugins: [
-    require("@tailwindcss/typography"),
     plugin(function ({ addVariant }) {
       addVariant(
         "prose-inline-code",

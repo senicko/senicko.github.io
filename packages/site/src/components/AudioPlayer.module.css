@@ -1,3 +1,5 @@
+@reference "tailwindcss";
+
 .slider {
   @apply relative h-1 cursor-pointer appearance-none rounded-sm bg-zinc-600
   before:pointer-events-none before:absolute before:h-1 before:rounded-lg before:bg-zinc-500 before:content-[''] after:pointer-events-none after:absolute

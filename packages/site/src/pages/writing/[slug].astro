@@ -1,6 +1,6 @@
 ---
 import type { GetStaticPaths } from "astro";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import TableOfContents from "../../components/TableOfContents.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import AudioPlayer from "../../components/AudioPlayer";
@@ -12,18 +12,14 @@ import { cn } from "../../lib/utils";
 export const getStaticPaths = (async () => {
   const blog = await getCollection("articles");
 
-  return blog.map((entry) => {
-    entry.render().then((output) => console.log(output.Content));
-
-    return {
-      params: { slug: entry.slug },
-      props: { entry },
-    };
-  });
+  return blog.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
 }) satisfies GetStaticPaths;
 
 const { entry } = Astro.props;
-const { Content, remarkPluginFrontmatter, headings } = await entry.render();
+const { Content, remarkPluginFrontmatter, headings } = await render(entry);
 
 const toc = generateToc(headings, 3);
 ---
@@ -75,7 +71,7 @@ const toc = generateToc(headings, 3);
         entry.data.podcast && (
           <div>
             <AudioPlayer
-              src={`/assets/podcasts/${entry.slug}.mp3`}
+              src={`/assets/podcasts/${entry.id}.mp3`}
               client:only="react"
             />
           </div>

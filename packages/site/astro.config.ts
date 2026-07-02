@@ -1,9 +1,9 @@
 import mdx from "@astrojs/mdx";
-import tailwind from "@astrojs/tailwind";
 import {
   transformerMetaHighlight,
   transformerNotationHighlight,
 } from "@shikijs/transformers";
+import { unified } from "@astrojs/markdown-remark";
 import type { RemarkPlugins } from "astro";
 import { defineConfig } from "astro/config";
 import { s } from "hastscript";
@@ -17,6 +17,10 @@ import darkTheme from "./themes/dark-theme.json";
 import lightTheme from "./themes/light-theme.json";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+
+import tailwindcss from "@tailwindcss/vite";
 
 const rehypeAutoLinkHeadingsOptions: RehypeAutolinkHeadingsOptions = {
   behavior: "append",
@@ -54,11 +58,14 @@ export function remarkReadingTime() {
 export default defineConfig({
   integrations: [
     mdx({
-      rehypePlugins: [
-        rehypeSlug,
-        [rehypeAutolinkHeadings, rehypeAutoLinkHeadingsOptions],
-      ],
-      remarkPlugins: [remarkReadingTime],
+      processor: unified({
+        rehypePlugins: [
+          rehypeSlug,
+          rehypeKatex,
+          [rehypeAutolinkHeadings, rehypeAutoLinkHeadingsOptions],
+        ],
+        remarkPlugins: [remarkReadingTime, remarkMath],
+      }),
       shikiConfig: {
         themes: {
           light: lightTheme,
@@ -70,12 +77,14 @@ export default defineConfig({
         ],
       },
     }),
-    tailwind(),
     react(),
     sitemap(),
   ],
   site: "https://senicko.github.io",
   devToolbar: {
     enabled: false,
+  },
+  vite: {
+    plugins: [tailwindcss()],
   },
 });

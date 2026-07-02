@@ -12,7 +12,7 @@ export const GET: APIRoute = async (context) => {
     items: articles.map((article) => ({
       title: article.data.title,
       pubDate: article.data.pubDate,
-      link: `/writing/${article.slug}`,
+      link: `/writing/${article.id}`,
       categories: article.data.tags,
     })),
     customData: "<language>en-us</language>",

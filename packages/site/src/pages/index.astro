@@ -13,9 +13,7 @@ const description = `Hi`;
   <main class="space-y-16">
     <section class="space-y-2">
       <h1 class="font-normal text-zinc-950 dark:text-zinc-50">About</h1>
-      <p>
-        Hello, I am Sebastian.
-      </p>
+      <p>Hello, I am Sebastian.</p>
     </section>
     {
       articles.length !== 0 && (
@@ -28,8 +26,8 @@ const description = `Hi`;
                   {dateFormatter.format(post.data.pubDate)}
                 </span>
                 <a
-                  href={`/writing/${post.slug}`}
-                  class="inline-block w-full max-w-[400px] pl-4 text-zinc-950 hover:underline dark:text-zinc-50"
+                  href={`/writing/${post.id}`}
+                  class="inline-block w-full max-w-100 pl-4 text-zinc-950 hover:underline dark:text-zinc-50"
                 >
                   {post.data.title}
                   <svg
